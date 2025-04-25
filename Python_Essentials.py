@@ -8,13 +8,41 @@ import numpy as np
 arr = np.array([1, 2, 3, 4, 5])
 print("Array:", arr)
 
+vec = np.arange(1, 21)
+print(vec)
+ls = [1,2,3,4,5,6,7,8,9]
+
+# Select random number of elements
+from random import sample
+print(sample(ls, 1))
+
 # Basic statistics
 print("Mean:", np.mean(arr))
 print("Standard Deviation:", np.std(arr))
 
+print("Mean:", np.mean(vec))
+print("Stdv:", round(np.std(vec), 3))
+
 # --- 2. PANDAS ---
 # Pandas is used for data manipulation and analysis
 import pandas as pd
+
+df = {'x': [1,2,3,4,5], 'y': [1,2,3,4,5] }
+df = pd.DataFrame(df)
+print(df)
+
+df.rename(columns ={'x': 'Col1', 'y': 'Col2'})
+df.rename(index = {0: 'zero', 1: 'one', 2: 'two'})
+
+for i in range(1, 21):
+    print(i)
+
+# Randomly sample from a Distribution
+rsample = np.random.normal(0, 1, 10)
+print(rsample)
+
+psample = np.random.poisson(lam = 0.5, size = 10)
+print(psample)
 
 # Reading CSV and Excel files
 df_csv = pd.read_csv('data.csv')
