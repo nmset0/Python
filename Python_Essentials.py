@@ -48,6 +48,9 @@ print(psample)
 df_csv = pd.read_csv('data.csv')
 df_xlsx = pd.read_excel('data.xlsx')
 
+# Summary()
+df.info()
+
 # Display first few rows
 print(df_csv.head())
 
