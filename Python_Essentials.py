@@ -50,6 +50,7 @@ df_xlsx = pd.read_excel('data.xlsx')
 
 # Summary()
 df.info()
+df.describe()
 
 # Display first few rows
 print(df_csv.head())
