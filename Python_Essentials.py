@@ -31,6 +31,7 @@ df = {'x': [1,2,3,4,5], 'y': [1,2,3,4,5] }
 df = pd.DataFrame(df)
 print(df)
 
+# df.rename(columns = {'old_name': 'new_name'}, inplace = True) inplace modifies original dataframe
 df.rename(columns ={'x': 'Col1', 'y': 'Col2'})
 df.rename(index = {0: 'zero', 1: 'one', 2: 'two'})
 
