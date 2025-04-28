@@ -17,6 +17,9 @@ FD.loc[:11, 'SG'] += 5
 FD.loc[:11, 'G'] += 5
 FD.loc[:11, 'EDUHS'] -= 5
 
+FD['Month'] = pd.to_datetime(FD['Month'], format='%b-%y')
+FD['Month'] = FD['Month'].dt.month
+
 Traffic_long = TRAF_raw.melt(id_vars=['Year'],  var_name='Month',  value_name='Value' ) # melt for wide->long
 
 Traffic_long['Month'] = pd.to_datetime( Traffic_long['Month'], format='%b').dt.month
@@ -27,9 +30,8 @@ Traffic_long['Month'] = Traffic_long['Month'].dt.month
 TRAF_long = Traffic_long.sort_values(by=['Year', 'Month'], ascending=True)
 TRAF_long.rename(columns={'Year': 'year'}, inplace=True)
 
-
 # Bind Traffic Data and Final Data
-DF = pd.concat([FD.iloc[:len(TRAF_long), :].reset_index(drop=True), TRAF_long['Value']], axis=1)
+DF = pd.merge(FD, TRAF_long, on = ['year', 'Month'], how = 'left')
 DF.rename(columns={'Value': 'traffic_frequency'}, inplace=True)
 
 # Selecting predictors + Lead_STF_Real
