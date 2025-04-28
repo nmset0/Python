@@ -16,19 +16,12 @@ FD.loc[FD['year'] == 2024, 'Lead_STF_Real'] *= (3.85 / 4.35)
 FD.loc[:11, 'SG'] += 5
 FD.loc[:11, 'G'] += 5
 FD.loc[:11, 'EDUHS'] -= 5
-
 FD['Month'] = pd.to_datetime(FD['Month'], format='%b-%y')
 FD['Month'] = FD['Month'].dt.month
 
-Traffic_long = TRAF_raw.melt(id_vars=['Year'],  var_name='Month',  value_name='Value' ) # melt for wide->long
-
-Traffic_long['Month'] = pd.to_datetime( Traffic_long['Month'], format='%b').dt.month
-Traffic_long['Month'] = pd.to_datetime(Traffic_long['Year'].astype(str) + '-' + Traffic_long['Month'].astype(str) + '-01')
-
-Traffic_long = Traffic_long[['Month', 'Year', 'Value']]
-Traffic_long['Month'] = Traffic_long['Month'].dt.month
-TRAF_long = Traffic_long.sort_values(by=['Year', 'Month'], ascending=True)
-TRAF_long.rename(columns={'Year': 'year'}, inplace=True)
+Traffic_long = TRAF_raw.melt(id_vars=['Year'], var_name='Month', value_name='Value')
+Traffic_long['Month'] = pd.to_datetime(Traffic_long['Month'], format='%b').dt.month
+TRAF_long = Traffic_long.sort_values(by=['Year', 'Month'], ascending=True).rename(columns={'Year': 'year'})
 
 # Bind Traffic Data and Final Data
 DF = pd.merge(FD, TRAF_long, on = ['year', 'Month'], how = 'left')
