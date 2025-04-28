@@ -2,11 +2,18 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+# from scipy.stats import pearsonr
 
 SalesTax = pd.read_excel('Data/SalesTax.xlsx')
 #print(SalesTax.describe())
 
 SalesTax.loc[:, 'SalesTax'] = SalesTax.loc[:, 'SalesTax']/1000000
+
+correlation_month = SalesTax['SalesTax'].corr(SalesTax['Month'], method='pearson')
+print(f"R_sq = {round(correlation_month, 3)}")
+
+correlation_year = SalesTax['SalesTax'].corr(SalesTax['Year'], method='pearson')
+print(f"R_sq = {round(correlation_year, 3)}")
 
 x = SalesTax.loc[:, 'Year'].values.reshape(-1,1)
 y = SalesTax.loc[:, 'SalesTax'].values
