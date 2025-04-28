@@ -5,20 +5,18 @@ from statsmodels.tsa.vector_ar.vecm import coint_johansen, VECM
 from statsmodels.tsa.api import VAR
 import matplotlib.pyplot as plt
 
-FD_raw = pd.read_excel("Data/FinalData.xlsx", sheet_name=0)
+FD = pd.read_excel("Data/FinalData.xlsx")
 TRAF_raw = pd.read_excel("Data/TrafficVolume.xlsx")
+# slightly edited from original data sets
 
 # Cleaning 
 
 # Necessary Adjustments
-FD_1 = FD_raw.iloc[:157, :].copy()
+FD.loc[FD['year'] == 2024, 'Lead_STF_Real'] *= (3.85 / 4.35)
+FD.loc[:11, 'SG'] += 5
+FD.loc[:11, 'G'] += 5
+FD.loc[:11, 'EDUHS'] -= 5
 
-FD_1.loc[FD_1['year'] == 2024, 'Lead_STF_Real'] *= (3.85 / 4.35)
-FD_1.loc[:11, 'SG'] += 5
-FD_1.loc[:11, 'G'] += 5
-FD_1.loc[:11, 'EDUHS'] -= 5
-
-# (using pre-adjusted data set)
 Traffic_long = TRAF_raw.melt(id_vars=['Year'],  var_name='Month',  value_name='Value' ) # melt for wide->long
 
 Traffic_long['Month'] = pd.to_datetime( Traffic_long['Month'], format='%b').dt.month
@@ -31,7 +29,7 @@ TRAF_long.rename(columns={'Year': 'year'}, inplace=True)
 
 
 # Bind Traffic Data and Final Data
-DF = pd.concat([FD_1.iloc[:len(TRAF_long), :].reset_index(drop=True), TRAF_long['Value']], axis=1)
+DF = pd.concat([FD.iloc[:len(TRAF_long), :].reset_index(drop=True), TRAF_long['Value']], axis=1)
 DF.rename(columns={'Value': 'traffic_frequency'}, inplace=True)
 
 # Selecting predictors + Lead_STF_Real
