@@ -51,8 +51,6 @@ BETA = np.round(johansen.evec[:, :6], 3)
 vecm = VECM(ldf, k_ar_diff = 12, coint_rank = 6, deterministic = "co") 
 vecm_fit = vecm.fit(method = "ml") 
 
-#ldf = ldf.diff().dropna()
-
 # Dickey-Fuller unit root test
 def dickeyfuller_test(timeseries):
     # Perform the Dickey-Fuller test
@@ -68,6 +66,10 @@ def dickeyfuller_test(timeseries):
 for column in ldf.columns:
     print(f"\nDickey-Fuller Test for {column}:")
     dickeyfuller_test(ldf[column])
+
+# ldf = ldf.diff().dropna()
+
+
 
 # Variables
 p, d, q = 1, 1, 1
