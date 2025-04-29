@@ -13,8 +13,10 @@ print(vec)
 ls = [1,2,3,4,5,6,7,8,9]
 
 # Select random number of elements
-from random
+import random 
+from random import sample
 print(sample(ls, 1))
+print(random.randint(1, 10))
 
 # Basic statistics
 print("Mean:", np.mean(arr))
@@ -109,17 +111,16 @@ print("Mean Squared Error:", mean_squared_error(y_test, y_pred))
 
 # --- 7. TENSORFLOW ---
 # TensorFlow is used for deep learning
-import tensorflow as tf
+# import tensorflow as tf
 
 # Creating a simple neural network model
-model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
-    tf.keras.layers.Dense(1)
-])
-model.compile(optimizer='adam', loss='mean_squared_error')
+# model = tf.keras.models.Sequential([
+#    tf.keras.layers.Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
+#    tf.keras.layers.Dense(1)])
+# model.compile(optimizer='adam', loss='mean_squared_error')
 
 # Training the model
-model.fit(X_train, y_train, epochs=10)
+# model.fit(X_train, y_train, epochs=10)
 
 # --- 8. PYTORCH ---
 # PyTorch is another deep learning library
