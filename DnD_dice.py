@@ -10,23 +10,9 @@ def diceSelect():
 def numSides(dicetype):
     # ignore case and remove any punctuation
     dicetype = ''.join(char for char in dicetype if char.isalnum()).lower()
-    match dicetype:
-        case "d4":
-            sides = 4
-        case "d6":
-            sides = 6
-        case "d8":
-            sides = 8
-        case "d10":
-            sides = 10
-        case "d12":
-            sides = 12
-        case "d20":
-            sides = 20
-        case "stop":
-            sides = 0
-        case _:
-            print("Invalid die type. Please choose d4, d6, d8, d10, d12, or d20.")
+    sides = dice_map.get(dicetype)
+    if sides is None:
+        print("Invalid die type. Please choose d4, d6, d8, d10, d12, or d20.")
     return sides
     
 # Fun things
@@ -50,45 +36,36 @@ def Goodbye():
 
 # Roll the die
 def dnd_roller(dicetype):
-    sides = numSides(dicetype)
-    dicetype = ''.join(char for char in dicetype if char.isalnum()).lower()    
-    match dicetype:
-        case "d4":
-            # Choose random number between 1 and number of sides of selected die
-            roll = random.randint(1, sides) 
-            print(f"You rolled a D4 and got a {roll}!")
-            message(roll, numSides(dicetype))
-        case "d6":
-            roll = random.randint(1, sides)
-            print(f"You rolled a D6 and got a {roll}!")
-            message(roll, numSides(dicetype))
-        case "d8":
-            roll = random.randint(1, sides)
-            print(f"You rolled a D8 and got a {roll}!")
-            message(roll, numSides(dicetype))
-        case "d10":
-            roll = random.randint(1, sides)
-            print(f"You rolled a D10 and got a {roll}!")
-            message(roll, numSides(dicetype))
-        case "d12":
-            roll = random.randint(1, sides)
-            print(f"You rolled a D12 and got a {random.randint(1, 12)}!")
-            message(roll, numSides(dicetype))
-        case "d20":
-            roll = random.randint(1, sides)
-            print(f"You rolled a D20 and got a {roll}!")
-            if roll != 20:
-                message(roll, numSides(dicetype))
-            else:
-                print("Amazing!")
-        case "stop":
-            print(f"\n\"{Goodbye()}\"\n")
-        case _:
-            print("Invalid die type. Please choose D4, D6, D8, D10, D12, or D20.")
+    # Ignore case and remove any punctuation
+    dicetype = ''.join(char for char in dicetype if char.isalnum()).lower()
+
+    sides = dice_map.get(dicetype)
+    if sides is None:
+        print("Invalid die type. Please choose D4, D6, D8, D10, D12, or D20.")
+        return
+    if dicetype == "stop":
+        print(f"\n\"{Goodbye()}\"\n")
+        return
+    
+    roll = random.randint(1, sides)
+    print(f"You rolled a {dicetype.upper()} and got a {roll}!")
+    if dicetype == "d20" and roll == 20:
+        print("Amazing!")
+    else:
+        message(roll, sides)
 
 
 
 
 if __name__ == "__main__":
     print("==========[Dungeons & Dragons Dice Roller]==========")
+    dice_map = {
+        "d4": 4,
+        "d6": 6,
+        "d8": 8,
+        "d10": 10,
+        "d12": 12,
+        "d20": 20,
+        "stop": 0
+    }    
     dnd_roller(diceSelect())
