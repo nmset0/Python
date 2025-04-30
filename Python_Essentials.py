@@ -66,7 +66,82 @@ joined = pd.merge(df_csv, df_xlsx, on='ID', how='inner')
 # Matplotlib is used for plotting and visualization
 import matplotlib.pyplot as plt
 
+# matplotlib plotting choices:
+
 # Line plot
+plt.plot(x, y)
+
+# Scatter plot
+plt.scatter(x, y)
+
+# Bar plot
+plt.bar(x, height)
+
+# Horizontal bar plot
+plt.barh(x, width)
+
+# Histogram
+plt.hist(x, bins=10)
+
+# Pie chart
+plt.pie(x, labels=labels)
+
+# Box plot
+plt.boxplot(data)
+
+# Violin plot
+plt.violinplot(data)
+
+# Stem plot
+plt.stem(x, y)
+
+# Step plot
+plt.step(x, y)
+
+# Error bar plot
+plt.errorbar(x, y, yerr=errors)
+
+# Stack plot
+plt.stackplot(x, y)
+
+# Fill between
+plt.fill_between(x, y1, y2)
+
+# Contour plot
+plt.contour(X, Y, Z)
+
+# Contour filled plot
+plt.contourf(X, Y, Z)
+
+# Quiver plot
+plt.quiver(X, Y, U, V)
+
+# Stream plot
+plt.streamplot(X, Y, U, V)
+
+# Heatmap (using imshow)
+plt.imshow(data, cmap='viridis')
+
+# Polar plot
+plt.polar(theta, r)
+
+# 3D plot (requires Axes3D from mpl_toolkits.mplot3d)
+from mpl_toolkits.mplot3d import Axes3D
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.plot(x, y, z)
+
+# Log-log plot
+plt.loglog(x, y)
+
+# Semilog-x plot
+plt.semilogx(x, y)
+
+# Semilog-y plot
+plt.semilogy(x, y)
+#=========================#
+
+# Line plot usage
 plt.plot(arr)
 plt.title("Line Plot")
 plt.xlabel("Index")
