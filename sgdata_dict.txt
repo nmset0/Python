@@ -1,0 +1,16 @@
+The dataset includes the following columns:
+
+- ID: Unique identifier for each individual
+- Sex: Encoded as 0 (Female) and 1 (Male)
+- Marital Status: Categorized as single or non-single (divorced/separated/married/widowed)
+- Age: Age of the individual
+- Education: Education level attained (e.g., high school, university)
+- Income: Annual income in monetary units
+- Occupation: Job classification (e.g., skilled employee, unemployed)
+- Settlement Size: Categorization of the residential area (possibly urban/rural classification)
+
+
+Potential Use Cases:
+Income Prediction: Understanding how factors like education and occupation impact earnings
+Socioeconomic Analysis: Studying trends in employment and settlement size
+Demographic Studies: Exploring relationships between age, marital status, and economic well-being
