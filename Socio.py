@@ -26,7 +26,7 @@ educ.columns = ['Education', 'Frequency']
 sns.barplot(data=educ, x='Education', y='Frequency', palette='inferno')
 plt.title('Education')
 plt.xlabel('Education Level')
-plt.ylabel('Frequency')
+plt.ylabel('Count')
 plt.show()
 
 # sex distr
@@ -36,7 +36,7 @@ plt.xticks([0, 1], labels = ['Female', 'Male'])
 plt.yticks(range(0, 1201, 100))
 plt.title('Gender Distribution')
 plt.xlabel('Sex')
-plt.ylabel('Frequency')
+plt.ylabel('Count')
 plt.show()
 
 # age distr
@@ -51,5 +51,15 @@ for count, patch in zip(counts, patches):
 plt.title('Age Distribution')
 plt.xlabel('Age')
 plt.ylabel('Frequency')
+plt.show()
+
+# marital status
+Mawwiage = sgdata['Marital status'].value_counts()
+Mawwiage = Mawwiage.reset_index()
+Mawwiage.columns = ['Marital status', 'Frequency']
+sns.barplot(data = Mawwiage, x='Marital status', y='Frequency', palette = 'RdPu')
+plt.title('Marriage')
+plt.xlabel('Marital Status')
+plt.ylabel('Count')
 plt.show()
 
