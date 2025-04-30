@@ -63,3 +63,4 @@ plt.xlabel('Marital Status')
 plt.ylabel('Count')
 plt.show()
 
+print(sgdata.drop('ID', axis = 1).describe().loc[['mean', 'std']])
