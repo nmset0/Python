@@ -18,13 +18,13 @@ educ = pd.concat([educ[educ.index != 'other / unknown'], educ[educ.index == 'oth
 # plt.show()
 
 # seaborn
-# educ = educ.reset_index()
-# educ.columns = ['Education', 'Frequency']
-# sns.barplot(data=educ, x='Education', y='Frequency', palette='inferno')
-# plt.title('Education')
-# plt.xlabel('Education Level')
-# plt.ylabel('Frequency')
-# plt.show()
+educ = educ.reset_index()
+educ.columns = ['Education', 'Frequency']
+sns.barplot(data=educ, x='Education', y='Frequency', palette='inferno')
+plt.title('Education')
+plt.xlabel('Education Level')
+plt.ylabel('Frequency')
+plt.show()
 
 sx = sgdata['Sex'].value_counts()
 plt.bar(sx.index, sx.values, color = ['#ff69b4', '#0055b3'])
