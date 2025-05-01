@@ -67,12 +67,12 @@ for column in ldf.columns:
     print(f"\nDickey-Fuller Test for {column}:")
     dickeyfuller_test(ldf[column])
 
-# ldf = ldf.diff().dropna()
+ldf = ldf.diff().dropna()
 
 
 
 # Variables
-p, d, q = 1, 1, 1
+p, d, q = 1, 0, 0
 P, D, Q = 1, 1, 1
 s = 12
 nhor = 12
