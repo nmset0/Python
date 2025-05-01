@@ -1,7 +1,7 @@
-# import numpy as np
-import statsmodels.api as stm
 import pandas as pd
+import statsmodels.api as stm
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 import seaborn as sns
 import pingouin as pg
 from scipy.stats import chi2_contingency
@@ -17,59 +17,59 @@ sgdata['Sex'] = sgdata['Sex'].astype('category')
 
 print(sgdata.info())
 
-# #Education distr
-# educ = sgdata['Education'].value_counts()
-# educ = pd.concat([educ[educ.index != 'other / unknown'], educ[educ.index == 'other / unknown']])
+#Education distr
+educ = sgdata['Education'].value_counts()
+educ = pd.concat([educ[educ.index != 'other / unknown'], educ[educ.index == 'other / unknown']])
 
-# #matplotlib
-# plt.bar(educ.index, educ.values)
-# plt.title('Education')
-# plt.xlabel('Education Level')
-# plt.ylabel('Frequency')
-# plt.show()
+#matplotlib
+plt.bar(educ.index, educ.values)
+plt.title('Education')
+plt.xlabel('Education Level')
+plt.ylabel('Frequency')
+plt.show()
 
-# #seaborn
-# educ = educ.reset_index()
-# educ.columns = ['Education', 'Frequency']
-# sns.barplot(data=educ, x='Education', y='Frequency', palette='inferno')
-# plt.title('Education')
-# plt.xlabel('Education Level')
-# plt.ylabel('Count')
-# plt.show()
+#seaborn
+educ = educ.reset_index()
+educ.columns = ['Education', 'Frequency']
+sns.barplot(data=educ, x='Education', y='Frequency', palette='inferno')
+plt.title('Education')
+plt.xlabel('Education Level')
+plt.ylabel('Count')
+plt.show()
 
-# #sex distr
-# sx = sgdata['Sex'].value_counts()
-# plt.bar(sx.index, sx.values, color = ['#ff69b4', '#0055b3'])
-# plt.xticks([0, 1], labels = ['Female', 'Male'])
-# plt.yticks(range(0, 1201, 100))
-# plt.title('Gender Distribution')
-# plt.xlabel('Sex')
-# plt.ylabel('Count')
-# plt.show()
+#sex distr
+sx = sgdata['Sex'].value_counts()
+plt.bar(sx.index, sx.values, color = ['#ff69b4', '#0055b3'])
+plt.xticks([0, 1], labels = ['Female', 'Male'])
+plt.yticks(range(0, 1201, 100))
+plt.title('Gender Distribution')
+plt.xlabel('Sex')
+plt.ylabel('Count')
+plt.show()
 
-# #age distr
-# counts, bins, patches = plt.hist(sgdata['Age'], bins=20, align='mid', edgecolor='black')
-# norm = mcolors.Normalize(vmin=min(counts), vmax=max(counts))
-# colormap = cm.BuGn
+#age distr
+counts, bins, patches = plt.hist(sgdata['Age'], bins=20, align='mid', edgecolor='black')
+norm = mcolors.Normalize(vmin=min(counts), vmax=max(counts))
+colormap = cm.BuGn
 
-# for count, patch in zip(counts, patches):
-#     color = colormap(norm(count))
-#     patch.set_facecolor(color)
+for count, patch in zip(counts, patches):
+    color = colormap(norm(count))
+    patch.set_facecolor(color)
 
-# plt.title('Age Distribution')
-# plt.xlabel('Age')
-# plt.ylabel('Frequency')
-# plt.show()
+plt.title('Age Distribution')
+plt.xlabel('Age')
+plt.ylabel('Frequency')
+plt.show()
 
-# #marital status
-# Mawwiage = sgdata['Marital status'].value_counts()
-# Mawwiage = Mawwiage.reset_index()
-# Mawwiage.columns = ['Marital status', 'Frequency']
-# sns.barplot(data = Mawwiage, x='Marital status', y='Frequency', palette = 'RdPu')
-# plt.title('Marriage')
-# plt.xlabel('Marital Status')
-# plt.ylabel('Count')
-# plt.show()
+#marital status
+Mawwiage = sgdata['Marital status'].value_counts()
+Mawwiage = Mawwiage.reset_index()
+Mawwiage.columns = ['Marital status', 'Frequency']
+sns.barplot(data = Mawwiage, x='Marital status', y='Frequency', palette = 'RdPu')
+plt.title('Marriage')
+plt.xlabel('Marital Status')
+plt.ylabel('Count')
+plt.show()
 
 
 # Linear Models
