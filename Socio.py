@@ -3,13 +3,17 @@ import statsmodels.api as stm
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-# import pingouin as pg
+import pingouin as pg
+from scipy.stats import chi2_contingency
 
 # Provided by https://www.kaggle.com/datasets/aldol07/socioeconomic-factors-and-income-dataset
 sgdata = pd.read_csv('Data/sgdata.csv')
 
 sgdata = sgdata.sort_values(by='Age', ascending=True)
 sgdata = sgdata.reset_index(drop=True)
+
+sgdata['Settlement size'] = sgdata['Settlement size'].astype('category')
+sgdata['Sex'] = sgdata['Sex'].astype('category')
 
 print(sgdata.info())
 
@@ -122,4 +126,66 @@ plt.legend(
 plt.title('Age vs. Income by Settlement Size')
 plt.xlabel('Age')
 plt.ylabel('Income')
-plt.show()
+# lt.show()
+
+# Correlation / ANOVA
+
+# correlation between age and income
+incomeAge_corr = pg.corr(sgdata['Age'], 
+                         sgdata['Income'],
+                         alternative = 'two-sided',
+                         method = 'pearson')
+print(f"Age and Income Correlation (r): {round(incomeAge_corr['r'], 3)}")
+print(f"P-value: {incomeAge_corr['p-val']}")
+
+# anova between income between settlement sizes
+incomeSettlement = pg.welch_anova(dv = 'Income', 
+                                  between = 'Settlement size', 
+                                  data = sgdata)
+print(f"Income and Settlement Size F-Statistic: {round(incomeSettlement['F'], 3)}")
+print(f"Income and Settlement Size P-Value: {incomeSettlement['p-unc']}")
+
+
+# Chi-Square test for Settlement size and Occupation
+contingency_table_occupation = pd.crosstab(sgdata['Settlement size'], sgdata['Occupation'])
+chi2_occupation, p_occupation, dof_occupation, expected_occupation = chi2_contingency(contingency_table_occupation)
+print("Chi-Square Test for Settlement size and Occupation")
+print(f"Chi-Square Statistic: {chi2_occupation:.3f}")
+print(f"P-Value: {p_occupation}")
+print("Expected Frequencies:")
+print(expected_occupation)
+
+# Chi-Square test for Settlement size and Education
+contingency_table_education = pd.crosstab(sgdata['Settlement size'], sgdata['Education'])
+chi2_education, p_education, dof_education, expected_education = chi2_contingency(contingency_table_education)
+print("\nChi-Square Test for Settlement size and Education")
+print(f"Chi-Square Statistic: {chi2_education:.3f}")
+print(f"P-Value: {p_education}")
+print("Expected Frequencies:")
+print(expected_education)
+
+
+# anova between income and education level
+incomeEducation = pg.welch_anova(dv = 'Income',
+                                  between = 'Education', 
+                                  data = sgdata)
+print(f"Income and Education F-Statistic: {round(incomeEducation['F'], 3)}")
+print(f"Income and Education P-Value: {incomeEducation['p-unc']}")
+
+# anova between income and occupation
+incomeOccupation = pg.welch_anova(dv = 'Income', 
+                                  between = 'Occupation', 
+                                  data = sgdata)
+print(f"Income and Occupation F-Statistic: {round(incomeOccupation['F'], 3)}")
+print(f"Income and Occupation P-Value: {incomeOccupation['p-unc']}")
+
+# anova between income and sex
+incomeSex = pg.welch_anova(dv = 'Income', 
+                                  between = 'Sex', 
+                                  data = sgdata)
+print(f"Income and Sex F-Statistic: {round(incomeSex['F'], 3)}")
+print(f"Income and Sex P-Value: {incomeSex['p-unc']}")
+
+
+
+
