@@ -2,6 +2,8 @@ import pandas as pd
 import statsmodels.api as stm
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+import matplotlib.cm as cm
+from matplotlib.patches import Patch
 import seaborn as sns
 import pingouin as pg
 from scipy.stats import chi2_contingency
@@ -16,6 +18,10 @@ sgdata['Settlement size'] = sgdata['Settlement size'].astype('category')
 sgdata['Sex'] = sgdata['Sex'].astype('category')
 
 print(sgdata.info())
+
+settlementSizePercent = sgdata['Settlement size'].value_counts(normalize=True) * 100
+print("Percentage of each Settlement size:")
+print(settlementSizePercent)
 
 #Education distr
 educ = sgdata['Education'].value_counts()
@@ -187,5 +193,29 @@ print(f"Income and Sex F-Statistic: {round(incomeSex['F'], 3)}")
 print(f"Income and Sex P-Value: {incomeSex['p-unc']}")
 
 
+# income by occupation
+income_by_occupation = sgdata.groupby('Occupation')['Income'].mean()
+print(f"Average Income by Occupation: {income_by_occupation}")
 
+
+# distribution of income for each education level 
+sns.boxplot(data=sgdata, x='Education', y='Income', palette='coolwarm')
+plt.title('Income Distribution by Education Level')
+plt.xlabel('Education Level')
+plt.ylabel('Income')
+plt.xticks(rotation=45)
+plt.show()
+
+# Age distribution for each settlement size
+sns.histplot(data=sgdata, x='Age', hue='Settlement size', multiple='stack', palette='Set2', bins=20)
+
+settlement_sizes = sgdata['Settlement size'].cat.categories  # Get unique categories
+palette = sns.color_palette('Set2', len(settlement_sizes))  # Match the palette used in the plot
+legend_handles = [Patch(color=palette[i], label=f'Settlement size {settlement_sizes[i]}') for i in range(len(settlement_sizes))]
+
+plt.title('Age Distribution by Settlement Size')
+plt.xlabel('Age')
+plt.ylabel('Count')
+plt.legend(handles=legend_handles, title='Settlement Size', loc='upper right')
+plt.show()
 
