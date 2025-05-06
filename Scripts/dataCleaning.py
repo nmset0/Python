@@ -18,7 +18,9 @@ agriculture_1 = agriculture_1.map(lambda x: x.lower() if isinstance(x, str) else
 agriculture_wide = agriculture_1.pivot_table(index=['state', 'county'], columns = 'ID', values = 'value', aggfunc = 'first').reset_index()
 
 # Alter punctuation
-agriculture_wide.columns = agriculture_wide.columns.str.replace(r"[:\-\,/ ]", "_", regex = True).str.replace("__", "_", regex = False)
+agriculture_wide.columns = agriculture_wide.columns.str.replace(r"[:\-\,/ ]", "_", regex = True)
+agriculture_wide.columns = agriculture_wide.columns.str.replace("__", "_", regex = False)
+agriculture_wide.columns = agriculture_wide.columns.str.replace("__", "_", regex = False)
 
 # Replace cells that contain "(d)" 
 agriculture_wide = agriculture_wide.replace(r'\(d\)', 0, regex = True)
