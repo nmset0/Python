@@ -20,9 +20,8 @@ agriculture_wide = agriculture_1.pivot_table(index=['state', 'county'], columns 
 # Alter punctuation
 agriculture_wide.columns = agriculture_wide.columns.str.replace(r"[:\-\,/ ]", "_", regex = True).str.replace("__", "_", regex = False)
 
-# Remove rows that contain "(d)"
-agriculture_wide = agriculture_wide[~agriculture_wide.apply(lambda row: row.astype(str).str.contains(r'\(d\)').any(), axis=1)]
-
+# Replace cells that contain "(d)" 
+agriculture_wide = agriculture_wide.replace(r'\(d\)', 0, regex = True)
 # Fill NaN
 agriculture_wide = agriculture_wide.fillna(0)
 
