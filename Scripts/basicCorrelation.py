@@ -36,3 +36,21 @@ correlation(X, Y, 'pearson')
 correlation(Y, X, 'spearman')
 correlation(X, empty, 'pearson')
 correlation(X, Z, 'kendall')
+
+
+def is_subset(empty_set, universal_set):
+    for element in empty_set:
+        if element not in universal_set:
+            return False
+    return True  
+
+empty_set = set()  # Empty set
+set_a = {1, 2, 3}
+set_b = {"apple", "banana", "cherry"}
+set_c = set()  # Another empty set
+
+print("Is the empty set a subset of set_a?", is_subset(empty_set, set_a))
+print("Is the empty set a subset of set_b?", is_subset(empty_set, set_b))
+print("Is the empty set a subset of set_c?", is_subset(empty_set, set_c))
+print("Is set_b set a subset of set_a?", is_subset(set_b, set_a))
+print("Is set_a set a subset of set_b?", is_subset(set_a, set_b))
